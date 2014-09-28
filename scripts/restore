@@ -1,0 +1,57 @@
+#!/bin/sh
+
+FILE=$1
+
+# Check if argument was provided
+if [ -z $FILE ]
+then
+    echo "You must provide file name."
+    exit 1
+fi
+
+echo "Checking if file $FILE is installed."
+INSTALLED=0
+
+# Check if file exists
+if [ ! -e ~/.$FILE ]
+then
+    echo "File $FILE does not exist. Assuming not installed."
+else
+    # Check if file is symlink. If so, we assume it is installed.
+    if [ -h ~/.$FILE ]
+    then
+        echo "Installed."
+        INSTALLED=1
+    else
+        echo "Not installed."
+    fi
+fi
+
+# Exit if file installed.
+if [ $INSTALLED -eq 0 ]
+then
+    echo "Nothing to do, exiting."
+    exit 1
+fi
+
+# Check if we have backup file
+BACKUPFILE=$HOME/dotfiles/backup/.$FILE
+
+echo "Checking if backup file $BACKUPFILE exists..."
+
+if [ ! -e $BACKUPFILE ]
+then
+    echo "No, it does not. Cannot restore, so exiting."
+    exit 1
+else
+    echo "Good, backup exists."
+fi
+
+# Just in case, backup whatever we have
+cp -v $BACKUPFILE $BACKUPFILE$(date -d "today" +"%Y%m%d%H%M%S")
+# Restore original file
+mv -v $BACKUPFILE $HOME/.$FILE
+
+echo "Done."
+exit 0
+

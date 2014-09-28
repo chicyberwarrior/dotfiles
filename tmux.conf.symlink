@@ -1,0 +1,76 @@
+set -g default-terminal "screen-256color"
+set -g utf8
+set -g history-limit 10000
+
+bind | split-window -h
+bind - split-window -v
+
+# Replace Ctrl+B with Ctrl+A
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+
+# Window indexing starts with 1
+set-option -g base-index 1
+setw -g pane-base-index 1
+
+# VI-style
+setw -g mode-keys vi
+unbind-key j
+bind-key j select-pane -D # Similar to 'C-w j' to navigate windows in Vim
+unbind-key k
+bind-key k select-pane -U
+unbind-key h
+bind-key h select-pane -L
+unbind-key l
+bind-key l select-pane -R
+
+# Just click it
+set-option -g mouse-select-pane on
+set-option -g mouse-select-window on
+set-option -g mouse-resize-pane on
+ 
+# Scroll your way into copy mode (scrollback buffer)
+# and select text for copying with the mouse
+setw -g mode-mouse on
+
+# Set status bar
+set -g status-bg black
+set -g status-fg white
+set -g status-left ""
+set -g status-right "#[fg=green]#H"
+
+
+# Rather than constraining window size to the maximum size of any client 
+# connected to the *session*, constrain window size to the maximum size of any 
+# client connected to *that window*. Much more reasonable.
+setw -g aggressive-resize on
+
+# Highlight active window
+set-window-option -g window-status-current-bg red
+
+set -s escape-time 0
+
+
+set-option -g status-right-length 50
+bind-key t source-file ~/.tmux/hide-clock.conf
+set-option -g status-right-length 0
+bind-key t source-file ~/.tmux/show-clock.conf
+
+
+# Define my custom menu bar
+# status bar colors
+set -g status-bg black
+set -g status-fg white
+
+# alignment settings
+set-option -g status-justify centre
+
+# status left options
+set-option -g status-left '#[fg=green][#[bg=black,fg=cyan]#S#[fg=green]]'
+set-option -g status-left-length 20
+# window list options
+setw -g automatic-rename on
+set-window-option -g window-status-format '#[fg=cyan,dim]#I#[fg=blue]:#[default]#W#[fg=grey,dim]#F'
+set-window-option -g window-status-current-format '#[bg=blue,fg=cyan,bold]#I#[bg=blue,fg=cyan]:#[fg=colour230]#W#[fg=dim]#F'
+set -g base-index 1
