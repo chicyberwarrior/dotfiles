@@ -23,4 +23,4 @@ bindkey -e
 export PS1="%K{blue}%n@%m%k %B%F{cyan}%(4~|...|)%3~%F{white} %# %b%f%k"
 export PATH=$HOME/bin:$PATH:/opt/local/bin:$HOME/opt/komodoedit/bin
 source $HOME/.aliases
-source .zshrc_local
+source ~/.zshrc_local
