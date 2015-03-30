@@ -21,7 +21,6 @@ unsetopt appendhistory
 bindkey -e
 # End of lines configured by zsh-newuser-install
 export PS1="%K{blue}%n@%m%k %B%F{cyan}%(4~|...|)%3~%F{white} %# %b%f%k"
-#export PS1="%F{5}[%F{2}%n%F{5}] %F{3}%3~ %f%"
-export PATH=$HOME/bin:$PATH:$HOME/opt/komodoedit/bin
+export PATH=$HOME/bin:$PATH:/opt/local/bin:$HOME/opt/komodoedit/bin
 source $HOME/.aliases
 source .zshrc_local
